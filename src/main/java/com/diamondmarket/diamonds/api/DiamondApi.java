@@ -18,7 +18,6 @@ public interface DiamondApi {
 	
 	@RequestMapping(value = "/diamonds/getAll", 
 					produces = { "application/json" },
-					consumes = { "application/json" }, 
 			        method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<Response> getAllDiamonds(@RequestHeader HttpHeaders httpHeaders);
 	

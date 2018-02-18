@@ -28,7 +28,13 @@ public class DiamondApiController implements DiamondApi {
 	public ResponseEntity<Response> getAllDiamonds(@RequestHeader HttpHeaders httpHeaders) {
 		
 		TransactionContext context = createTransactionContext(httpHeaders);
-		List<Diamond> list = diamondService.getAllDiamonds();
+		List<Diamond> list=null;
+		try {
+			list = diamondService.getAllDiamonds();
+		} 
+		catch (Exception exception) {
+			return errorResponse(context, exception, HttpStatus.BAD_REQUEST);
+		}
 		return successResponse(context, list, HttpStatus.OK);
 	}
 
@@ -36,7 +42,12 @@ public class DiamondApiController implements DiamondApi {
 	@Override
 	public ResponseEntity<Response> addDiamonds(@RequestHeader HttpHeaders httpHeaders, @RequestBody Supplier supplier) {
 		TransactionContext context = createTransactionContext(httpHeaders);
-		Supplier supplier2 = diamondService.addDiamonds(supplier.getDiamonds(),supplier.get_id());
+		Supplier supplier2;
+		try {
+			supplier2 = diamondService.addDiamonds(supplier.getDiamonds(),supplier.get_id());
+		} catch (Exception exception) {
+			return errorResponse(context, exception, HttpStatus.BAD_REQUEST);
+		}
 		return successResponse(context, supplier2 , HttpStatus.OK);
 	}
 	
@@ -44,8 +55,12 @@ public class DiamondApiController implements DiamondApi {
 	@Override
 	public ResponseEntity<Response> deleteSupplier(@RequestHeader HttpHeaders httpHeaders, String supplierId) {
 		TransactionContext context = createTransactionContext(httpHeaders);
-		diamondService.deleteSupplier(supplierId);
-		return successResponse(context, "Supplier added Successfully", HttpStatus.OK);
+		try {
+			diamondService.deleteSupplier(supplierId);
+		} catch (Exception exception) {
+			return errorResponse(context, exception, HttpStatus.BAD_REQUEST);
+		}
+		return successResponse(context, "Supplier Deleted Successfully", HttpStatus.OK);
 	}
 	
 	private TransactionContext createTransactionContext(HttpHeaders httpHeaders) {
@@ -77,7 +92,6 @@ public class DiamondApiController implements DiamondApi {
 		return responseEntity;
 	}
 	
-	@SuppressWarnings("unused")
 	private ResponseEntity<Response> errorResponse(TransactionContext context, Exception exception, HttpStatus httpStatus){
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("correlationId", context.getCorrelationId());

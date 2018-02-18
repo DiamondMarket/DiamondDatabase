@@ -2,25 +2,19 @@ package com.diamondmarket.diamonds.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Diamond {
 		
-	 @JsonProperty("diamondId")
 	  private String diamondId = null;
 
-	  @JsonProperty("diamondType")
 	  private String diamondType = null;
 
-	  @JsonProperty("carat")
 	  private Long carat = null;
 	  
-	  @JsonProperty("weight")
 	  private Double weight = null;
 
-	  @JsonProperty("prize")
 	  private Long prize = null;
 
 	public String getDiamondId() {
