@@ -24,6 +24,8 @@ public class DiamondService {
 			List<Supplier> list = diamondRepository.findAll();
 			for(Supplier s: list)
 				diamondlist.addAll(s.getDiamonds());
+			if(diamondlist.size()==0)
+				throw new Exception("Currently there are no diamonds to Display");
 		}
 		catch (MongoException exception) {
 				throw new Exception("There is some network issue, Please try after some time");		
@@ -64,6 +66,27 @@ public class DiamondService {
 		catch (Exception exception) {
 			throw new Exception(exception.getMessage());
 		}
+	}
+
+	public List<Diamond> getAllDiamondsForSupplier(String supplierId) throws Exception {
+		
+		List<Diamond> diamondlist =  new ArrayList<>();
+		
+		try {
+			Supplier supplier = diamondRepository.findOne(supplierId);
+			diamondlist.addAll(supplier.getDiamonds());
+			if(diamondlist.size()==0)
+				throw new Exception("Currently there are no Diamonds in your Bucket");
+		}
+		catch (MongoException exception) {
+				throw new Exception("There is some network issue, Please try after some time");		
+		}
+		catch (Exception exception) {
+			throw new Exception(exception.getMessage());
+		}
+		
+		return diamondlist;
+
 	}
 
 }

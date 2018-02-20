@@ -2,6 +2,7 @@ package com.diamondmarket.diamonds.api;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,16 +13,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.diamondmarket.diamonds.model.Response;
 import com.diamondmarket.diamonds.model.Supplier;
 
-@SuppressWarnings("rawtypes")
 public interface DiamondApi {
 
 	
-	@RequestMapping(value = "/diamonds/getAll", 
+	@RequestMapping(value = "/diamonds", 
 					produces = { "application/json" },
 			        method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<Response> getAllDiamonds(@RequestHeader HttpHeaders httpHeaders);
 	
-	@RequestMapping(value = "/supplier/add", 
+	@RequestMapping(value = "/diamonds/{id}", 
+			produces = { "application/json" },
+	        method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<Response> getAllDiamondsforSupplier(@RequestHeader HttpHeaders httpHeaders, @PathVariable("supplierId") String supplierId);
+	
+	@RequestMapping(value = "/supplier", 
 			produces = { "application/json" },
 			consumes = { "application/json" },
 	        method = RequestMethod.POST)
