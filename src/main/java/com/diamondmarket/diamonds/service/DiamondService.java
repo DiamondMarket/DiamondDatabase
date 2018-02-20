@@ -58,6 +58,8 @@ public class DiamondService {
 	public void deleteSupplier(String supplierId) throws Exception {
 		
 		try {
+			if(diamondRepository.findOne(supplierId)==null)
+				throw new Exception("invalid Supplier ID");
 			diamondRepository.delete(supplierId);
 		}
 		catch (MongoException exception) {
@@ -74,6 +76,9 @@ public class DiamondService {
 		
 		try {
 			Supplier supplier = diamondRepository.findOne(supplierId);
+			if (supplier==null) {
+				throw new Exception("Invalid Supplier ID");
+			}
 			diamondlist.addAll(supplier.getDiamonds());
 			if(diamondlist.size()==0)
 				throw new Exception("Currently there are no Diamonds in your Bucket");

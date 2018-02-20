@@ -21,7 +21,7 @@ public interface DiamondApi {
 			        method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<Response> getAllDiamonds(@RequestHeader HttpHeaders httpHeaders);
 	
-	@RequestMapping(value = "/diamonds/{id}", 
+	@RequestMapping(value = "/diamonds/{supplierId}", 
 			produces = { "application/json" },
 	        method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<Response> getAllDiamondsforSupplier(@RequestHeader HttpHeaders httpHeaders, @PathVariable("supplierId") String supplierId);
@@ -34,7 +34,6 @@ public interface DiamondApi {
 	
 	@RequestMapping(value = "/supplier", 
 			produces = { "application/json" },
-			consumes = { "application/json" },
 	        method = RequestMethod.DELETE)
 	public @ResponseBody ResponseEntity<Response> deleteSupplier(@RequestHeader HttpHeaders httpHeaders, @RequestParam("supplierId") String supplierId);
 	
