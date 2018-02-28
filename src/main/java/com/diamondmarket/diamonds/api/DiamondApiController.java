@@ -129,4 +129,10 @@ public class DiamondApiController implements DiamondApi {
 		return responseEntity;
 	}
 
+
+	@Override
+	public String getString(@RequestHeader HttpHeaders httpHeaders) {
+		return "Desh rangila rangile, popu chodia chodila";
+	}
+
 }

@@ -31,6 +31,11 @@ public interface DiamondApi {
 			        method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<Response> getAllDiamonds(@RequestHeader HttpHeaders httpHeaders);
 	
+	@RequestMapping(value = "/string", 
+			produces = { "application/json" },
+	        method = RequestMethod.GET)
+	public @ResponseBody String getString(@RequestHeader HttpHeaders httpHeaders);
+	
 	@RequestMapping(value = "/diamonds/{supplierId}", 
 			produces = { "application/json" },
 	        method = RequestMethod.GET)
